@@ -1,6 +1,8 @@
 import os;
 
-restaurantes = ['Pizza','Churras'];
+restaurantes = [{'nome':'Donatelo','categoria':'Pizza','ativo':False},
+                {'nome':'Churras','categoria':'Churrascaria','ativo':False},
+                {'nome':'DaNona','categoria':'Italiano','ativo':False}];
 
 def exibir_nome_do_programa():    
     print ('Sabor Express\n');
@@ -12,31 +14,40 @@ def exibir_opcoes():
     print('4. Sair\n');
 
 def finalizar_app() :
-    os.system('cls');
-    print('Encerrando o APP\n');
+    exibir_subtitulo('Encerrando o APP');
+
+def voltar_ao_menu_principal():
+    input('Digite uma tecla para voltar ao menu principal: \n');
+    main();
 
 def opcao_invalida():
     print('Opção Inválida\n');
-    input('Digite uma tecla para voltar ao menu principal: ');
-    main();
+    voltar_ao_menu_principal();
+
+def exibir_subtitulo(texto):
+    os.system('cls');
+    print(texto);
+    print();
 
 def cadastrar_novo_restaurante():
-    os.system('cls');
-    print('Cadastro de novos restaurantes\n');
+    exibir_subtitulo('Cadastro de novos restaurantes');
     nome_do_restaurante = input('Digite o nome do restaurante que deseja cadastrar: ');
-    restaurantes.append(nome_do_restaurante);
+    categoria = input(f'Digite o nome da categoria do restaurante {nome_do_restaurante}: ');
+#    restaurantes.append(nome_do_restaurante);
+    dados_do_restaurante = {'nome':nome_do_restaurante,'categoria':categoria,'ativo':False};
+    restaurantes.append(dados_do_restaurante);
     print(f'O restaurante {nome_do_restaurante} foi cadastrado com sucesso!\n');
-    input('\nDigite uma tecla para voltar ao menu principal: ');
-    main();
+    voltar_ao_menu_principal();
 
 def listar_restaurantes():
-    os.system('cls');
-    print('Listando restaurantes\n');
+    exibir_subtitulo('Listando restaurantes');
 
     for restaurante in restaurantes:
-        print(f'. {restaurante}');
-    input('\nDigite uma tecla para voltar ao menu principal: ');
-    main();
+        nome_restaurante = restaurante['nome'];
+        categoria = restaurante['categoria'];
+        ativo = restaurante['ativo'];
+        print(f'- {nome_restaurante} | {categoria} | {ativo}');
+    voltar_ao_menu_principal();
 
 def escolher_opcao():
     try:
